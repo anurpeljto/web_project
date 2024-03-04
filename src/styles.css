@@ -47,3 +47,12 @@ span {
     gap: 10px;
 }
 
+.sidebar-item > span:hover {
+    transition: width 1s ease;
+    text-decoration: underline;
+    position: relative;
+    text-decoration-color: orange;
+    width: 100%;
+}
+
+
