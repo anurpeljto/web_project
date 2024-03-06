@@ -15,7 +15,6 @@ span {
 
 .sidebar {
     height: 100%;
-    width: 100%;
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
@@ -55,4 +54,18 @@ span {
     width: 100%;
 }
 
+.mainlayout{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr repeat(0.50fr);
+    grid-template-columns: repeat(1fr);
+}
+
+.taskBox{
+    display: grid;
+    border: 1px solid orange;
+    margin: 10px;
+}
 
