@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
 body{
     display: grid;
     position: absolute;
@@ -59,13 +63,38 @@ span {
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-rows: 1fr repeat(0.50fr);
-    grid-template-columns: repeat(1fr);
+    grid-template-rows: repeat(auto-fit, minmax(0, 0.20fr));
+    grid-template-columns: repeat(auto-fit, 1fr);
 }
 
-.taskBox{
+.content {
+    height: 100%;
+    width: 100%;
+    padding: 3em;
     display: grid;
-    border: 1px solid orange;
-    margin: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr minmax(auto, 1fr);
+    gap: 2em;
 }
 
+.firstbox{
+    display: grid;
+    grid-template-columns: 1fr .2fr;
+    grid-auto-flow: row;
+
+}
+
+.tasks {
+    grid-column: 1;
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timeAndCategory{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
