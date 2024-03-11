@@ -65,12 +65,13 @@ span {
     display: grid;
     grid-template-rows: repeat(auto-fit, minmax(0, 0.20fr));
     grid-template-columns: repeat(auto-fit, 1fr);
+    overflow: scroll;
 }
 
 .content {
     height: 100%;
     width: 100%;
-    padding: 3em;
+    padding: 4em;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 0.2fr minmax(auto, 1fr);
@@ -90,6 +91,9 @@ span {
     gap: 1em;
     justify-content: space-between;
     align-items: center;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    border-spacing: 10px;
 }
 
 .timeAndCategory{
