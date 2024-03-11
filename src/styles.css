@@ -1,6 +1,10 @@
 * {
     font-family: 'Roboto', 'Helvetica', sans-serif;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
 
 body{
     display: grid;
@@ -125,4 +129,13 @@ span {
     grid-template-columns: 1fr .2fr;
     grid-auto-flow: row;
     gap: 1em;
+}
+
+.settingsContainer {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+    
 }
