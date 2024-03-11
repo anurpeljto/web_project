@@ -96,5 +96,18 @@ span {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
+}
+
+.family {
+    color: pink;
+}
+.carreer {
+    color: #E80041;
+}
+.hydration{
+    color: #00B5E8;
+}
+.mindfulness {
+    color:#00E833;
 }
