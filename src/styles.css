@@ -111,3 +111,14 @@ span {
 .mindfulness {
     color:#00E833;
 }
+
+.food{
+    color: #E8A700;
+}
+
+.secondbox{
+    display: grid;
+    grid-template-columns: 1fr .2fr;
+    grid-auto-flow: row;
+    gap: 1em;
+}
