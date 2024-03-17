@@ -1,3 +1,11 @@
+* {
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
 body{
     display: grid;
     position: absolute;
@@ -15,7 +23,6 @@ span {
 
 .sidebar {
     height: 100%;
-    width: 100%;
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
@@ -55,4 +62,126 @@ span {
     width: 100%;
 }
 
+.mainlayout{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(0, 0.20fr));
+    grid-template-columns: repeat(auto-fit, 1fr);
+    overflow: scroll;
+}
 
+.content {
+    height: 100%;
+    width: 100%;
+    padding: 4em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr minmax(auto, 1fr);
+    gap: 2em;
+}
+
+.firstbox{
+    display: grid;
+    grid-template-columns: 1fr .2fr;
+    grid-auto-flow: row;
+    gap: 1em;
+}
+
+.tasks {
+    grid-column: 1;
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    border-spacing: 10px;
+}
+
+.timeAndCategory{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.family {
+    color: pink;
+}
+.carreer {
+    color: #E80041;
+}
+.hydration{
+    color: #00B5E8;
+}
+.mindfulness {
+    color:#00E833;
+}
+
+.food{
+    color: #E8A700;
+}
+
+.secondbox{
+    display: grid;
+    grid-template-columns: 1fr .2fr;
+    grid-auto-flow: row;
+    gap: 1em;
+}
+
+.settingsContainer {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+    
+}
+
+.settingslayout {
+    height: 100%;
+    width: 100%;
+    margin: 3rem;
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr;
+    grid-auto-flow: column;
+    gap: 2em;
+}
+
+.settingsTitles{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr;
+    grid-auto-flow: row;
+    gap: 2em;
+}
+
+.settingsBox{
+    grid-column: 1 / 3;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(2, .25fr);
+    grid-template-rows: repeat(4, .25fr);
+}
+
+.setting {
+    font-size: 1em;
+    font-weight: lighter+100;
+}
+
+.saveSettings {
+    grid-row: -1;
+    height: 3em;
+    width: 8rem;
+}
+
+.tinyLine{
+    height: 1px;
+    width: 100%;
+    color: black;
+}
