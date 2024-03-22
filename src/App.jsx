@@ -10,7 +10,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element ={<HomePage />} />
-      <Route path='`/task/:$id`' element={<TaskPage />} />
+      <Route path='/tasks' element={<TaskPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Route>
   )

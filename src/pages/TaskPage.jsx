@@ -1,8 +1,11 @@
 import React from 'react'
+import Upcoming from '../components/Upcoming'
 
 const TaskPage = () => {
   return (
-    <div>TaskPage</div>
+      <section className="bg-gray-50 px-4 py-6">
+      <Upcoming title='All tasks' />
+      </section>
   )
 }
 
