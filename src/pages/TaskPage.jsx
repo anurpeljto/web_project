@@ -1,12 +1,27 @@
 import React from 'react'
-import Upcoming from '../components/Upcoming'
+import {useState, useEffect} from 'react';
+import todo from '../todo.json';
+import {useParams} from 'react-router-dom';
 
 const TaskPage = () => {
-  return (
-      <section className="bg-gray-50 px-4 py-6">
-      <Upcoming title='All tasks' />
-      </section>
-  )
-}
+  const [task, setTask] = useState(0);
+  const {id} = useParams();
 
-export default TaskPage
+  useEffect(() => { 
+    const fetchTask = () => {
+      try{
+        const data = todo.find(item => item.id === parseInt(id));
+        setTask(data);
+      } catch (error){
+        console.log('Error', error);
+      }
+    }
+    fetchTask();
+  }, [id]);
+  return (
+    <h1>{task.title}</h1>
+  )
+};
+
+
+export default TaskPage;

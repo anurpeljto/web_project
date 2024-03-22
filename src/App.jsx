@@ -2,15 +2,17 @@ import React from 'react'
 import {Route, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import MainLayout from './layouts/MainLayout';
-import TaskPage from './pages/TaskPage';
+import TasksPage from './pages/TasksPage';
 import NotFoundPage from './pages/NotFoundPage';
+import TaskPage from './pages/TaskPage';
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
       <Route index element ={<HomePage />} />
-      <Route path='/tasks' element={<TaskPage />} />
+      <Route path='/tasks' element={<TasksPage />} />
+      <Route path='/tasks/:id' element={<TaskPage />} />
       <Route path='*' element={<NotFoundPage />} />
     </Route>
   )

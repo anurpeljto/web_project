@@ -20,7 +20,7 @@ const Item = ({item}) => {
                                 <div className="text-amber-700 mb-3">
                                     {item.category}
                                 </div>
-                                <Link to="/task/{id}" className='h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm'>
+                                <Link to={`/tasks/${item.id}`} className='h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm'>
                                     See task
                                 </Link>
                             </div>

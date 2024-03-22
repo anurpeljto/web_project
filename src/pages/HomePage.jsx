@@ -6,7 +6,7 @@ import ViewAllItems from '../components/ViewAllItems';
 const HomePage = () => {
   return (
     <>
-        <Upcoming isHome='true'/>
+        <Upcoming isHome={true}/>
         <ViewAllItems />
     </>
   )
