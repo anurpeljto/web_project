@@ -1,0 +1,42 @@
+[
+  {
+    "id" : "0",
+    "title": "Call Mom",
+    "description": "Discuss upcoming family reunion plans.",
+    "duration": "30 minutes",
+    "due_date": "2024-03-25",
+    "category": "Family"
+  },
+  {
+    "id" : "1",
+    "title": "Buy groceries",
+    "description": "Pick up ingredients for Sunday family dinner.",
+    "duration": "1 hour",
+    "due_date": "2024-03-23",
+    "category": "Family"
+  },
+  {
+    "id" : "2",
+    "title": "Visit grandparents",
+    "description": "Spend quality time with family elders.",
+    "duration": "2 hours",
+    "due_date": "2024-03-27",
+    "category": "Family"
+  },
+  {
+    "id" : "3",
+    "title": "Prepare kids for school",
+    "description": "Help with homework and pack lunches.",
+    "duration": "45 minutes",
+    "due_date": "2024-03-24",
+    "category": "Family"
+  },
+  {
+    "id" : "4",
+    "title": "Attend parent-teacher meeting",
+    "description": "Discuss child's progress in school.",
+    "duration": "1 hour",
+    "due_date": "2024-03-26",
+    "category": "Family"
+  }
+]
