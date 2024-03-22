@@ -23,7 +23,7 @@ const Upcoming = ({title = "Upcoming tasks", isHome = false}) => {
 
   return (
     <>
-        <section className='bg-green-40 px-4 py-10'>
+        <section className='bg-white-100 px-4 py-10'>
             <div className="container-xl lg:container m-auto">
                 <h2 className="text-3xl font-bold text-green-500 mb-6 text-center">
                     {title}

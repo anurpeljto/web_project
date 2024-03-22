@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 const Item = ({item}) => {
   return (
-    <div className="bg-white rounded-xl shadow-md relative">
+    <div className="bg-gray-100 rounded-xl shadow-md relative">
                         <div className="p-4">
                             <div className="mb-6">
                                 <div className="text-gray-600 my-2">{item.duration}</div>
