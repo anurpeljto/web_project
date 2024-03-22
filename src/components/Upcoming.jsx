@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useSyncExternalStore } from 'react'
 import todo from '../todo.json';
 import Item from './Item';
+import {useState, useEffect} from 'react';
 
 const Upcoming = ({title = "Upcoming tasks", isHome = false}) => {
-    const tasks = isHome ? todo.slice(0,3) : todo;
+    
+    const [tasks, setTasks] = useState([]);
+
+    useEffect( () => {
+        const fetchTasks = async () => {
+            try {
+                const result = await fetch('http://localhost:2000/tasks');
+                const data = await result.json();
+                setTasks(data);
+            } catch (error){
+                console.log("Error ", error);
+            }
+        }
+        fetchTasks();
+    }, [])
+
   return (
     <>
         <section className='bg-green-40 px-4 py-10'>
@@ -23,4 +39,4 @@ const Upcoming = ({title = "Upcoming tasks", isHome = false}) => {
   )
 }
 
-export default Upcoming
+export default Upcoming;
