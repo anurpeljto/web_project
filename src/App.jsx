@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import MainLayout from './layouts/MainLayout';
 import TasksPage from './pages/TasksPage';
 import NotFoundPage from './pages/NotFoundPage';
-import TaskPage from './pages/TaskPage';
+import TaskPage, { taskLoader } from './pages/TaskPage';
 
 
 const router = createBrowserRouter(
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     <Route path='/' element={<MainLayout />}>
       <Route index element ={<HomePage />} />
       <Route path='/tasks' element={<TasksPage />} />
-      <Route path='/tasks/:id' element={<TaskPage />} />
+      <Route path='/tasks/:id' element={<TaskPage />} loader={taskLoader}/>
       <Route path='*' element={<NotFoundPage />} />
     </Route>
   )
