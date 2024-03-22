@@ -19,8 +19,8 @@ const Item = ({item}) => {
                                 <div className="text-amber-700 mb-3">
                                     {item.category}
                                 </div>
-                                <a href="chore.html" className='h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm'>
-                                    Modify chore
+                                <a href="task.html" className='h-[36px] bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-center text-sm'>
+                                    Modify task
                                 </a>
                             </div>
                         </div>

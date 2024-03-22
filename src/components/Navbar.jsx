@@ -20,16 +20,16 @@ const Navbar = () => {
                         <div className="flex space-x-2">
 
                             <a to='/'
-                            className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
+                            className="text-white bg-amber-700 hover:bg-amber-900 hover:text-white rounded-md px-3 py-2">
                                 Home
                             </a>
 
                             <a to='/chores/'
-                            className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>
-                                Chores
+                            className='text-white hover:bg-amber-900 hover:text-white rounded-md px-3 py-2'>
+                                Tasks
                             </a>
 
-                            <a to='/add-chore' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Add item</a>
+                            <a to='/add-chore' className='text-white hover:bg-amber-900 hover:text-white rounded-md px-3 py-2'>Add item</a>
 
                         </div>
                     </div>

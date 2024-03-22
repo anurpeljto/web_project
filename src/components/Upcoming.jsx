@@ -3,6 +3,7 @@ import todo from '../todo.json';
 import Item from './Item';
 
 const Upcoming = () => {
+    const upcomingItems = todo.slice(0,3);
   return (
     <>
         <section className='bg-green-40 px-4 py-10'>
@@ -11,7 +12,7 @@ const Upcoming = () => {
                     Upcoming chores
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {todo.map((item) => (
+                    {upcomingItems.map((item) => (
                         <Item item={item} key = {item.id}/>
                     ))}
                     
