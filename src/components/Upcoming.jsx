@@ -9,8 +9,9 @@ const Upcoming = ({title = "Upcoming tasks", isHome = false}) => {
 
     useEffect( () => {
         const fetchTasks = async () => {
+            const api = isHome ? 'api/tasks?_limit=3' : 'api/tasks';
             try {
-                const result = await fetch('http://localhost:2000/tasks');
+                const result = await fetch(api);
                 const data = await result.json();
                 setTasks(data);
             } catch (error){
