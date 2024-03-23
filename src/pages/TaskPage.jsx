@@ -16,7 +16,7 @@ const TaskPage = () => {
     <>
       <section>
         <div className="container m-auto py-6 px-6">
-          <Link to='/tasks' className='text-green-500 hover:text-green-600 flex items-center'>
+          <Link to='/tasks/' className='text-green-500 hover:text-green-600 flex items-center'>
             <FaArrowLeft className='mr-2' />
             Go Back
           </Link>

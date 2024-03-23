@@ -15,7 +15,7 @@ const Navbar = () => {
                     <NavLink className="flex flex-shrink-0 items-center mr-4"
                     to=''>
                         {/* <img className='h-10 w-auto' src={logo} alt='ToDo List' /> IMG SUCKS DOESNT WORK */}
-                        <FaSeedling className='h-10 w-auto' />
+                        <FaSeedling className='h-10 w-auto fill-white' />
                         <span className="hidden md:block text-white text-2xl font-bold ml-2">
                             ToDo List
                         </span>
