@@ -41,14 +41,14 @@ const TaskPage = () => {
 
             <div className="grid grid-cols-2 grid-rows-2 rounded-lg bg-white mt-6">
               <h3 className="text-2xl font-bold mb-6 col-span-2 flex justify-center text-amber-500 pt-4">Manage task</h3>
-              <div className="rounded-lg flex justify-center items-center shadow-md mb-4 ml-3 bg-green-100 hover:bg-green-300">
+              <button className="rounded-lg flex justify-center items-center shadow-md mb-4 ml-3 bg-green-100 hover:bg-green-300">
                 <span className='text-xl text-black'>Mark done <FaCheck className='inline'/>
                 </span>
-              </div>
-              <div className="rounded-lg flex justify-center items-center shadow-lg mb-4 ml-3 bg-red-100 hover:bg-red-300 mr-4">
+              </button>
+              <button className="rounded-lg flex justify-center items-center shadow-lg mb-4 ml-3 bg-red-100 hover:bg-red-300 mr-4">
                 <span className='text-xl text-black'> Remove task <FaTimes className='inline'/>
                 </span>
-              </div>
+              </button>
             </div>
           </div>
         </div>
