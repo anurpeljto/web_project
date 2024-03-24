@@ -3,7 +3,7 @@ import React from 'react'
 const AddTaskPage = () => {
   return (
     <>
-        <section className='bg-green-50'>
+        <section className='bg-white'>
             <div className="container m-auto max-w-2xl py-24">
                 <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
                     <form>
@@ -12,7 +12,7 @@ const AddTaskPage = () => {
                             <label htmlFor="type" className='block text-amber-700 font-bold mb-2'>
                                 Task Type
                             </label>
-                            <select name="type" id="type" className='border rounded w-full py-2 px-3' required>
+                            <select name="type" id="type" className='border rounded w-full py-2 px-3 focus:border-green-600 focus:outline-green-600' required>
                                 <option value="Family">Family</option>
                                 <option value="Work">Work</option>
                                 <option value="Leisure">Leisure</option>
@@ -24,7 +24,7 @@ const AddTaskPage = () => {
 
                         <div className="mb-4">
                             <label htmlFor="taskName" className='block text-amber-700 font-bold mb-2'>Task Name
-                                <input type="text" id="taskName" name='taskName' className='border rounded w-full py-2 px-3 mb-2' required placeholder='eg. Pick kids up from school'/>
+                                <input type="text" id="taskName" name='taskName' className='border rounded w-full py-2 px-3 mb-2 focus:border-green-600 focus:outline-green-600' required placeholder='eg. Pick kids up from school'/>
                             </label>
                         </div>
 
@@ -33,12 +33,12 @@ const AddTaskPage = () => {
                                 Description
                             </label>
 
-                            <textarea name="description" id="description" rows="4" className='border rounded w-full py-2 px-3' placeholder='Add task description'></textarea>
+                            <textarea name="description" id="description" rows="4" className='border rounded w-full py-2 px-3 focus:border-green-600 focus:outline-green-600' placeholder='Add task description'></textarea>
                         </div>
 
                         <div className='mb-4 grid grid-rows-3 grid-cols-2 justify-center items-center'>
-                            <label htmlFor="duration" className='block text-amber-700 font-bold mb-2 col-span-2'>Duration</label>
-                            <select name="hours" id="hours" className='border rounded w-full py-2 px-3' required>
+                            <label htmlFor="duration" className='block text-amber-700 font-bold mb-2 col-span-2 '>Duration</label>
+                            <select name="hours" id="hours" className='border rounded w-full py-2 px-3 focus:border-green-600 focus:outline-green-600' required>
                             <option value="0hours">0 hours</option>
                             <option value="1hours">1 hours</option>
                             <option value="2hours">2 hours</option>
@@ -65,7 +65,7 @@ const AddTaskPage = () => {
                             <option value="23hours">23 hours</option>
                             <option value="24hours">24 hours</option>
                             </select>
-                            <select name="minutes" id="minutes" className='border rounded w-full py-2 px-3' required>
+                            <select name="minutes" id="minutes" className='border rounded w-full py-2 px-3 focus:border-green-600 focus:outline-green-600' required>
                             <option value="0minutes">0 minutes</option>
                                 <option value="1minutes">1 minute</option>
                                 <option value="2minutes">2 minutes</option>
@@ -131,7 +131,7 @@ const AddTaskPage = () => {
 
                         <div className='mb-4'>
                             <label htmlFor="date" className='block text-amber-700 font-bold mb-2'>Date</label>
-                            <input type="date" id='date' name='date' className='border rounded w-full py-2 px-3 mb-2' required/>
+                            <input type="date" id='date' name='date' className='border rounded w-full py-2 px-3 mb-2 focus:border-green-600 focus:outline-green-600' required/>
                         </div>
 
                         <div>

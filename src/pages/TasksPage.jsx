@@ -3,7 +3,7 @@ import Upcoming from '../components/Upcoming'
 
 const TasksPage = () => {
   return (
-      <section className="bg-gray-50 px-4 py-6">
+      <section className="bg-green-50 px-4 py-6">
       <Upcoming title='All tasks' />
       </section>
   )
