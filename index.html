@@ -16,6 +16,7 @@
         rel="stylesheet">
 
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sb-admin-2.css">
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.spapp.min.js"></script>
@@ -39,24 +40,17 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+            <!-- <li class="nav-item no-arrow">
+                <a class="nav-link dropdown-toggle" href="#settings" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                     <span class="mr-2 d-none d-lg-inline text-white small">Hi, John Doe</span>
-                </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                </div>
+                </a>                
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="#settings">
+                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                    <span>Hi, John Doe</span></a>
             </li>
 
             <div class="sidebar-divider"></div>
@@ -86,13 +80,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#viewAll" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="#viewAll"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-eye"></i>
                     <span>View all tasks</span>
                 </a>
 
             </li>
+            
 
 
             <!-- Divider -->
@@ -117,6 +112,8 @@
 
                     <section id="index" data-load="upcoming.html">
                     </section>
+
+                    <section id="settings" data-load="settings.html"></section>
                 </main>
             </section>
 
@@ -158,7 +155,6 @@
 
     <script src="js/script.js"></script>
     
-
 </body>
 
 </html>
