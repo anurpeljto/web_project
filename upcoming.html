@@ -18,6 +18,8 @@
 
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    
+
 </head>
 
 <body id="page-top">
@@ -35,6 +37,7 @@
                     <div class="col">
                       <div class="card" id="list1" style=" background-color: white;">
                         <div class="card-body py-4 px-4 px-md-5 h-100" id="upcomingTasks">
+                          
               
                           <p class="h1 text-center mt-3 mb-4 pb-3 text-success">
                             <i class="fas fa-check-square me-1"></i>
@@ -42,6 +45,18 @@
                           </p>
               
                           <div class="pb-2">
+                            <div class="d-flex flex-row align-items-center">
+                              <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
+                                placeholder="Add new task...">
+                                <button class="btn" type="button" aria-haspopup="true" aria-expanded="false" id="calendarIcon">
+
+                                  <i class="fas fa-calendar-alt text-success"></i>
+                                  
+                              </button>
+                              <div>
+                                <button type="button" class="btn btn-success">Add</button>
+                              </div>
+                            </div>
                           </div>
               
                           <hr class="my-4">
@@ -133,6 +148,12 @@
                   });
               }
           });
+      });
+
+      $('#calendarIcon').click(function() {
+          $('#exampleFormControlInput1').datepicker({
+              format: 'yyyy-mm-dd'
+          }).datepicker('show');
       });
   </script>
   
