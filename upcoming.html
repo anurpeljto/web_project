@@ -34,7 +34,7 @@
                   <div class="row d-flex justify-content-center align-items-start h-100">
                     <div class="col">
                       <div class="card" id="list1" style=" background-color: white;">
-                        <div class="card-body py-4 px-4 px-md-5 h-100">
+                        <div class="card-body py-4 px-4 px-md-5 h-100" id="upcomingTasks">
               
                           <p class="h1 text-center mt-3 mb-4 pb-3 text-success">
                             <i class="fas fa-check-square me-1"></i>
@@ -45,97 +45,7 @@
                           </div>
               
                           <hr class="my-4">
-              
-                          
-              
-                          <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-                            <li
-                              class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="form-check">
-                                <input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked1"
-                                  aria-label="..." checked />
-                              </div>
-                            </li>
-                            <li
-                              class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                              <p class="lead fw-normal mb-0">Renew car insurance</p>
-                            </li>
-                            <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="d-flex flex-row justify-content-end">
-                                <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo">
-                                  <i class="fas fa-pencil-alt mr-3"></i>
-                                </a>
-                                <a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo">
-                                  <i class="fas fa-trash-alt"></i>
-                                </a>
-                              </div>
-                              <div class="text-end text-muted">
-                                <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                                  <p class="small mb-0"></i>28th Jun 2020</p>
-                                </a>
-                              </div>
-                            </li>
-                          </ul>
-
-                          
-                          <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-                            <li
-                              class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="form-check">
-                                <input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked1"
-                                  aria-label="..." checked />
-                              </div>
-                            </li>
-                            <li
-                              class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                              <p class="lead fw-normal mb-0">Renew car insurance</p>
-                            </li>
-                            <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="d-flex flex-row justify-content-end">
-                                <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo">
-                                  <i class="fas fa-pencil-alt mr-3"></i>
-                                </a>
-                                <a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo">
-                                  <i class="fas fa-trash-alt"></i>
-                                </a>
-                              </div>
-                              <div class="text-end text-muted">
-                                <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                                  <p class="small mb-0"></i>28th Jun 2020</p>
-                                </a>
-                              </div>
-                            </li>
-                          </ul>
-
-
-                          <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-                            <li
-                              class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="form-check">
-                                <input class="form-check-input me-0" type="checkbox" value="" id="flexCheckChecked1"
-                                  aria-label="..." checked />
-                              </div>
-                            </li>
-                            <li
-                              class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                              <p class="lead fw-normal mb-0">Renew car insurance</p>
-                            </li>
-                            <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
-                              <div class="d-flex flex-row justify-content-end">
-                                <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo">
-                                  <i class="fas fa-pencil-alt mr-3"></i>
-                                </a>
-                                <a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo">
-                                  <i class="fas fa-trash-alt"></i>
-                                </a>
-                              </div>
-                              <div class="text-end text-muted">
-                                <a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date">
-                                  <p class="small mb-0"></i>28th Jun 2020</p>
-                                </a>
-                              </div>
-                            </li>
-                          </ul>
+          
               
                         </div>
                       </div>
@@ -178,6 +88,55 @@
         </div>
     </div>
 
+    <!-- AJAX for upcoming page. The difference is that it sorts tasks and limits to displaying only three -->
+    <script>
+      $(document).ready(function () {
+          $.ajax({
+              url: 'data.json',
+              dataType: 'json',
+              success: function (data) {
+                  var tasks = data.tasks;
+
+
+                  tasks.sort((a,b) => {
+                    return new Date(a['due-date']) - new Date(b['due-date']);
+                  });
+
+                  var upcTasks = tasks.slice(0,3);
+
+                  upcTasks.forEach(function(task) {
+                      var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
+  
+                      var liCheckbox = $('<li>').addClass('list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent');
+                      if (task.status == "finished"){
+                        var checkbox = $('<div>').addClass('form-check').html('<input class="form-check-input me-0" type="checkbox" value="" aria-label="..." checked />');
+                      } else {
+                        var checkbox = $('<div>').addClass('form-check').html('<input class="form-check-input me-0" type="checkbox" value="" aria-label="..."  />');
+
+                      }
+                      liCheckbox.append(checkbox);
+                      ulElement.append(liCheckbox);
+  
+                      var liTitle = $('<li>').addClass('list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent').html('<p class="lead fw-normal mb-0">' + task.title + '</p>');
+                      ulElement.append(liTitle);
+  
+                      var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
+                      var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
+                      actionIcons.html('<a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
+                                       '<a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
+                      liActions.append(actionIcons);
+                      var createdDate = new Date(task['due-date']);
+                      liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
+                      ulElement.append(liActions);
+  
+                      $('#upcomingTasks').append(ulElement);
+                  });
+              }
+          });
+      });
+  </script>
+  
+  
     
 
 </body>
