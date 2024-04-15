@@ -56,7 +56,7 @@
                                   <input type="date" id="due-date-input" class="form-control">                                  
                               </button>
                               <div>
-                                <button type="button" class="btn btn-success">Add</button>
+                                <button type="button" id="addButton" class="btn btn-success">Add</button>
                               </div>
                             </div>
                           </div>
@@ -109,7 +109,7 @@
     <script>
       $(document).ready(function () {
           $.ajax({
-              url: 'data.json',
+              url: 'api/get_upcoming_tasks.php',
               dataType: 'json',
               success: function (data) {
                   var tasks = data.tasks;
@@ -155,6 +155,40 @@
 
 
       
+  </script>
+
+  <script>
+    
+    const addBtn = document.getElementById('addButton');
+    addBtn.addEventListener('click', () => {
+      const title = document.getElementById('exampleFormControlInput1').value;
+      const due = document.getElementById('due-date-input').value;
+
+      console.log(title);
+      console.log(due);
+      
+      const requestData = {
+        title: title,
+        due: due
+      };
+
+      console.log(requestData);
+      $.ajax({
+        url: 'api/add_task',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData),
+        success: function(response) {
+          if(response.success) {
+            console.log('Added task successfully');
+          } else {
+            console.error('Failed to add task');
+          }
+        }
+      });
+      
+    });
   </script>
   
   

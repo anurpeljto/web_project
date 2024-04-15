@@ -1,0 +1,17 @@
+{
+    "name": "anurpeljto/web_project",
+    "autoload": {
+        "psr-4": {
+            "Anurpeljto\\WebProject\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "anurpeljto",
+            "email": "anurpeljto@stu.ibu.edu.ba"
+        }
+    ],
+    "require": {
+        "flightphp/core": "^3.8"
+    }
+}

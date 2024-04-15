@@ -65,50 +65,43 @@
     <!-- <script src="js/sb-admin-2.min.js"></script> -->
 
     <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'data.json',
-                dataType: 'json',
-                success: function (data) {
-                    var tasks = data.tasks;
-  
-  
-                    tasks.sort((a,b) => {
-                      return new Date(a['due-date']) - new Date(b['due-date']);
-                    });
-  
-                    tasks.forEach(function(task) {
+$(document).ready(function () {
+    $.ajax({
+        url: 'api/get_tasks.php',
+        dataType: 'json',
+        success: function (data) {
+            var tasks = data.tasks;
 
-                        var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
-    
-                        var liCheckbox = $('<li>').addClass('list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent');
-                            if (task.status == "finished"){
-                        var checkbox = $('<div>').addClass('form-check').html('<input class="form-check-input me-0" type="checkbox" value="" aria-label="..." checked />');
-                      } else {
-                        var checkbox = $('<div>').addClass('form-check').html('<input class="form-check-input me-0" type="checkbox" value="" aria-label="..."  />');
-
-                      }
-                        liCheckbox.append(checkbox);
-                        ulElement.append(liCheckbox);
-    
-                        var liTitle = $('<li>').addClass('list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent').html('<p class="lead fw-normal mb-0">' + task.title + '</p>');
-                        ulElement.append(liTitle);
-    
-                        var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
-                        var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
-                        actionIcons.html('<a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
-                                         '<a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
-                        liActions.append(actionIcons);
-                        var createdDate = new Date(task['due-date']);
-                        liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
-                        ulElement.append(liActions);
-    
-                        $('#upcomingTasks').append(ulElement);
-                    });
-                }
+            tasks.sort((a, b) => {
+                return new Date(a['due_date']) - new Date(b['due_date']);
             });
-        });
-    </script>
+
+            tasks.forEach(function(task) {
+                var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
+
+                var liCheckbox = $('<li>').addClass('list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent');
+                var checkbox = $('<div>').addClass('form-check').html('<input class="form-check-input me-0" type="checkbox" value="" aria-label="..." ' + (task.status == "finished" ? 'checked' : '') + '/>');
+                liCheckbox.append(checkbox);
+                ulElement.append(liCheckbox);
+
+                var liTitle = $('<li>').addClass('list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent').html('<p class="lead fw-normal mb-0">' + task.title + '</p>');
+                ulElement.append(liTitle);
+
+                var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
+                var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
+                actionIcons.html('<a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
+                                 '<a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
+                liActions.append(actionIcons);
+                var createdDate = new Date(task['due_date']);
+                liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
+                ulElement.append(liActions);
+
+                $('#upcomingTasks').append(ulElement);
+            });
+        }
+    });
+});
+</script>
   
 </body>
 </html>
