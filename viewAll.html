@@ -22,7 +22,7 @@
                     <div class="row d-flex justify-content-center align-items-start h-100">
                         <div class="col">
                             <div class="card" id="list1" style=" background-color: white;">
-                                <div class="card-body py-4 px-4 px-md-5 h-100" id="upcomingTasks">
+                                <div class="card-body py-4 px-4 px-md-5 h-100" id="allTasks">
                                     <p class="h1 text-center mt-3 mb-4 pb-3 text-success">
                                         <i class="fas fa-check-square me-1"></i>
                                         <u>All tasks</u>
@@ -96,7 +96,7 @@ $(document).ready(function () {
                 liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
                 ulElement.append(liActions);
 
-                $('#upcomingTasks').append(ulElement);
+                $('#allTasks').append(ulElement);
             });
         }
     });

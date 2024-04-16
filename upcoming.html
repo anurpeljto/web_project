@@ -105,23 +105,15 @@
         </div>
     </div>
 
-    <!-- AJAX for upcoming page. The difference is that it sorts tasks and limits to displaying only three -->
     <script>
       $(document).ready(function () {
           $.ajax({
               url: 'api/get_upcoming_tasks.php',
               dataType: 'json',
               success: function (data) {
-                  var tasks = data.tasks;
+                  var tasks = data.tasks; 
 
-
-                  tasks.sort((a,b) => {
-                    return new Date(a['due-date']) - new Date(b['due-date']);
-                  });
-
-                  var upcTasks = tasks.slice(0,3);
-
-                  upcTasks.forEach(function(task) {
+                  tasks.forEach(function(task) {
                       var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
   
                       var liCheckbox = $('<li>').addClass('list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent');
@@ -139,11 +131,10 @@
   
                       var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
                       var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
-                      actionIcons.html('<a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
-                                       '<a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
+                      actionIcons.html('<a href="" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
+                                       '<a href="" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
                       liActions.append(actionIcons);
-                      var createdDate = new Date(task['due-date']);
-                      liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
+                      liActions.append('<div class="text-end text-muted"><a href="" class="text-muted"><p class="small mb-0"></i>' + task.due_date + '</p></a></div>');
                       ulElement.append(liActions);
   
                       $('#upcomingTasks').append(ulElement);

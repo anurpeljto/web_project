@@ -9,7 +9,7 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$db", $user, $password);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare('SELECT * FROM tasks; LIMIT 3');
+    $stmt = $conn->prepare('SELECT * FROM tasks ORDER BY due_date LIMIT 5;');
     $stmt->execute();
 
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
