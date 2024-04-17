@@ -38,25 +38,25 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" id="regForm" name="form">
+                            <form class="user" id="regForm" name="form" method="POST">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" name="first_name"
                                             placeholder="First Name" required>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" class="form-control form-control-user" id="exampleLastName" name="last_name"
                                             placeholder="Last Name" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" name="email"
                                         placeholder="Email Address" required>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" required placeholder="Password">
+                                            id="exampleInputPassword" required placeholder="Password" name="password">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
@@ -83,17 +83,48 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
     
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <!-- <script src="js/sb-admin-2.min.js"></script> -->
 
-    <script src="./js/register.js"></script>
+    <!-- <script src="./js/register.js"></script> -->
+    <script>
+        $(document).ready(function() {
+            $('#submit').click(function(e) {
+                e.preventDefault();
+                const email = $('#exampleInputEmail').val();
+                const first_name = $('#exampleFirstName').val();
+                const last_name = $('#exampleLastName').val();
+                const password = $('#exampleInputPassword').val();
+
+                const formData = {
+                    "email": email,
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "password": password
+                };
+
+                console.log(formData);
+                $.ajax({
+                    type: 'POST',
+                    url:'api/register',
+                    data: JSON.stringify(formData),
+                    dataType: 'json',
+                    success: function(response){
+                            console.log('Successfully registered');
+                            window.location.href="./index.html";
+                        
+                    }
+                })
+            })
+        })
+    </script>
 
 </body>
 

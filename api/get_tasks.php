@@ -1,14 +1,10 @@
 <?php 
 
-$host = '127.0.0.1:8889';
-$db = 'my_database';
-$user = 'root';
-$password = 'root';
+require_once 'DB_connector.php';
 
 try {
-    $conn = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $database = new Connector();
+    $conn = $database->connect();
     $stmt = $conn->prepare('SELECT * FROM tasks');
     $stmt->execute();
 
