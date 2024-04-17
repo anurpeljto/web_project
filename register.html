@@ -117,8 +117,12 @@
                     data: JSON.stringify(formData),
                     dataType: 'json',
                     success: function(response){
-                            console.log('Successfully registered');
-                            window.location.href="./index.html";
+                            if (response.success === true){
+                                window.location.href="login.html";
+                            }
+                            else {
+                                console.log('Error');
+                            }
                         
                     }
                 })

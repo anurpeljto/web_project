@@ -7,6 +7,7 @@ require 'Controller.php';
     
 // });
 
+
 Flight::route('POST /add_task', function() {
     $data = Flight::request()->getBody();
     $jsonData = json_encode($data);
@@ -17,18 +18,17 @@ Flight::route('POST /add_task', function() {
 Flight::route('POST /login', function() {
     $body = Flight::request()->getBody();
     $controller = new Controller;
-    $controller->login($body);
+    $res = $controller->login($body);
+    echo $res;
 });
 
 Flight::route('POST /register', function() {
     $body = Flight::request()->getBody();
     $controller = new Controller;
     $res = $controller->register($body);
+    echo $res;
 });
 
-// Flight::route('GET /login', function() {
-//     Flight::redirect('../login.html');
-// });
 
 Flight::route('GET /dashboard', function() {
 

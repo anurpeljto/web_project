@@ -41,14 +41,12 @@ class Controller {
 
             if($user){
                 if (password_verify($userDetails['password'], $user['password'])){
-                    echo 'Success';
-                    return true;
+                    echo json_encode(["success" => true]);
                 } else {
                     echo 'Wrong password';
-                    return false;
                 }
             } else{
-                return false;
+                echo false;
             }
         } catch (PDOException $e){
             echo 'Error: ' . $e->getMessage();
@@ -81,10 +79,10 @@ class Controller {
                 $insert->bindParam(':first_name', $first_name);
                 $insert->bindParam(':last_name', $last_name);
                 $insert->execute();
-                return true;
+                return json_encode(["success" => true]);
             }
         } catch (PDOException $e){
-            echo 'Error: ' . $e->getMessage();
+            return json_encode(['status' => 'error', 'message' => 'Error: ' . $e->getMessage()]);
         }
 
     }
