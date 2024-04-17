@@ -107,7 +107,9 @@
 
     <script>
       $(document).ready(function () {
-          $.ajax({
+        var ulEle;
+          function fetchTasks() {
+            $.ajax({
               url: 'api/get_upcoming_tasks.php',
               dataType: 'json',
               success: function (data) {
@@ -138,20 +140,16 @@
                       ulElement.append(liActions);
   
                       $('#upcomingTasks').append(ulElement);
+                      ulEle = ulElement;
                   });
               }
           });
-          
-      });
+          } 
 
+          fetchTasks();
 
-      
-  </script>
-
-  <script>
-    
-    const addBtn = document.getElementById('addButton');
-    addBtn.addEventListener('click', () => {
+          const addBtn = document.getElementById('addButton');
+          addBtn.addEventListener('click', () => {
       const title = document.getElementById('exampleFormControlInput1').value;
       const due = document.getElementById('due-date-input').value;
 
@@ -173,6 +171,9 @@
         success: function(response) {
           if(response.success) {
             console.log('Added task successfully');
+            var upcomingTasks = document.getElementById('upcomingTasks');
+            upcomingTasks.removeChild(ulEle);
+            fetchTasks();
           } else {
             console.error('Failed to add task');
           }
@@ -180,6 +181,12 @@
       });
       
     });
+          
+      });
+
+
+    
+    
   </script>
   
   
