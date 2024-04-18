@@ -2,10 +2,32 @@
 
 require '../vendor/autoload.php';
 require 'Controller.php';
+require 'checkLoggedIn.php';
 
 // Flight::route('/', function() {
     
 // });
+
+
+Flight::before('start', function() {
+    checkLoggedIn();
+});
+
+Flight::route('GET /userDetails', function() {
+    session_start();
+    if(isset($_SESSION['user_id'])){
+        $userID = $_SESSION['user_id'];
+        $controller = new Controller;
+        $userDetails = $controller->getUserDetails($userID);
+        if($userDetails){
+            echo json_encode($userDetails);
+        } else {
+            Flight::halt(500, "Failed to fetch user details");
+        }
+    } else {
+        Flight::halt(401, 'Not logged in');
+    }
+});
 
 
 Flight::route('POST /add_task', function() {
@@ -30,8 +52,9 @@ Flight::route('POST /register', function() {
 });
 
 
-Flight::route('GET /dashboard', function() {
-
+Flight::route('*', function() {
+    Flight::halt(404, "Page not found");
 });
+
 
 Flight::start();

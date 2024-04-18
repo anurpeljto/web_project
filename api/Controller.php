@@ -41,6 +41,8 @@ class Controller {
 
             if($user){
                 if (password_verify($userDetails['password'], $user['password'])){
+                    session_start();
+                    $_SESSION['user_id'] = $user['user_id'];
                     echo json_encode(["success" => true]);
                 } else {
                     echo 'Wrong password';
@@ -85,5 +87,18 @@ class Controller {
             return json_encode(['status' => 'error', 'message' => 'Error: ' . $e->getMessage()]);
         }
 
+    }
+
+    public static function getUserDetails($userID){
+        try {
+            $conn = self::$connector->connect();
+            $stmt = $conn->prepare('SELECT first_name, last_name FROM users WHERE user_id = :id'); // Use 'user_id' instead of 'id'
+            $stmt->bindParam(':id', $userID);
+            $stmt->execute();
+            $userDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $userDetails;
+        } catch (PDOException $e){
+            echo 'Error ' . $e->getMessage();
+        }
     }
 }
