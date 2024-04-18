@@ -3,18 +3,15 @@
 require '../vendor/autoload.php';
 require 'Controller.php';
 require 'checkLoggedIn.php';
+require 'endSession.php';
 
 // Flight::route('/', function() {
     
 // });
 
 
-Flight::before('start', function() {
-    checkLoggedIn();
-});
-
 Flight::route('GET /userDetails', function() {
-    session_start();
+    checkLoggedIn();
     if(isset($_SESSION['user_id'])){
         $userID = $_SESSION['user_id'];
         $controller = new Controller;
@@ -31,6 +28,7 @@ Flight::route('GET /userDetails', function() {
 
 
 Flight::route('POST /add_task', function() {
+    checkLoggedIn();
     $data = Flight::request()->getBody();
     $jsonData = json_encode($data);
     $controller = new Controller;
@@ -49,6 +47,11 @@ Flight::route('POST /register', function() {
     $controller = new Controller;
     $res = $controller->register($body);
     echo $res;
+});
+
+Flight::route('GET /logout', function() {
+    checkLoggedIn();
+    endSession();
 });
 
 

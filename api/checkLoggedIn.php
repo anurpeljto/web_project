@@ -2,6 +2,6 @@
 
 function checkLoggedIn(){
     if(!isset($_SESSION['user_id'])){
-    header("Location: /login.php");
+        Flight::halt(401, 'Not logged in');
     }
 }
