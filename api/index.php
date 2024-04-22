@@ -19,8 +19,13 @@ Flight::route('POST /userDetails', function() {
 
 Flight::route('GET /userDetails', function() {
     $controller = new Controller;
+    $details = array(
+        "user_id" => $_SESSION['user_id'],
+        "first_name" => $_SESSION['first_name'],
+        "last_name" => $_SESSION['last_name']
+    );
     if(isset($_SESSION['user_details'])){
-        echo "USER DETAILS: " . $_SESSION['user_id'];
+        echo json_encode($details);
     }else {
         echo 'Not logged in';
     }

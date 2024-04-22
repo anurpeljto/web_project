@@ -156,8 +156,9 @@
                     if (data === null) {
                         window.location.href="register.html";
                     } else {
+                        const parsedData = JSON.parse(data);
                         console.log(data);
-                        $('#greeting').text('Hi, ' + data["first_name"] + ' ' + data["last_name"]);
+                        $('#greeting').text('Hi, ' + parsedData['first_name'] + ' ' + parsedData["last_name"]);
                     }
                 },
                 // error: function(xhr, status, error) {

@@ -97,6 +97,9 @@ class Controller {
 
             if($userDetails){
                 $_SESSION['user_details'] = $userDetails;
+                $_SESSION['user_id'] = $userDetails['user_id'];
+                $_SESSION['first_name'] = $userDetails['first_name'];
+                $_SESSION['last_name'] = $userDetails['last_name'];
                 return json_encode(["success" => "true"]);
             } else {
                 return json_encode(["error" => "User not found"]);
