@@ -118,11 +118,14 @@
                             $.ajax({
                                 type: 'POST',
                                 url: 'api/userDetails',
-                                data: data,
-                                dataType: 'json'
+                                data: JSON.stringify(data),
+                                dataType: 'json',
+                                success: function(response){
+                                    console.log(response);
+                                }
                             });
-                            
                             window.location.href='index.html';
+                            
                         } else{
                             console.error('Failed to log in');
                         }
