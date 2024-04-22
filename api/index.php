@@ -38,12 +38,19 @@ Flight::route('GET /tasks', function() {
     $controller->getTasks($user_id);
 });
 
+Flight::route('GET /upcoming', function() {
+    $controller = new Controller;
+    $user_id = $_SESSION['user_id'];
+    $controller->getUpcoming($user_id);
+});
+
 
 Flight::route('POST /add_task', function() {
     $data = Flight::request()->getBody();
     $jsonData = json_encode($data);
+    $user_id = $_SESSION['user_id'];
     $controller = new Controller;
-    $controller->addTask($data);
+    $controller->addTask($data, $user_id);
 });
 
 Flight::route('POST /login', function() {

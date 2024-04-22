@@ -11,15 +11,16 @@ class Controller {
         self::$connector = new Connector();
     }
 
-    public static function addTask($taskDetails){
+    public static function addTask($taskDetails, $user_id){
         $taskDetails = json_decode($taskDetails, true);
         
 
         try {
             $conn = self::$connector->connect();
-            $stmt = $conn->prepare('INSERT INTO tasks (title, due_date) VALUES (:title, :due)');
+            $stmt = $conn->prepare('INSERT INTO tasks (title, due_date, user_id) VALUES (:title, :due, :user_id)');
             $stmt->bindParam(':title', $taskDetails['title']);
             $stmt->bindParam(':due', $taskDetails['due']);
+            $stmt->bindParam(':user_id', $user_id);
             $stmt->execute();
             echo 'Success';
         } catch (PDOException $e){
@@ -147,6 +148,24 @@ class Controller {
             echo json_encode(['tasks'=>$tasks]);
         } catch (PDOException $e){
             echo 'Failed to connect to DB, ' . $e;
+        }
+        finally {
+            $conn = null;
+        }
+    }
+
+    public static function getUpcoming($user_id){
+        try {
+            $database = new Connector();
+            $conn = $database->connect();
+            $stmt = $conn->prepare('SELECT * FROM tasks WHERE due_date >= CURDATE() AND user_id = :user_id ORDER BY due_date LIMIT 5;');
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+        
+            $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode(['tasks'=>$tasks]);
+        } catch (PDOException $e){
+            echo 'Failed to connect to DB, ' . $e->getMessage();
         }
         finally {
             $conn = null;

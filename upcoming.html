@@ -110,8 +110,9 @@
         var ulEle;
           function fetchTasks() {
             $.ajax({
-              url: 'api/get_upcoming_tasks.php',
+              url: 'api/upcoming',
               dataType: 'json',
+              type:'GET',
               success: function (data) {
                   var tasks = data.tasks; 
 
