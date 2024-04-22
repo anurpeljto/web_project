@@ -115,12 +115,20 @@
                     dataType: 'json',
                     success: function(response) {
                         if(response.success === true){
+                            $.ajax({
+                                type: 'POST',
+                                url: 'api/userDetails',
+                                data: data,
+                                dataType: 'json'
+                            });
+                            
                             window.location.href='index.html';
                         } else{
                             console.error('Failed to log in');
                         }
                     }
                 })
+
             })
         });
     </script>

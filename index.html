@@ -50,7 +50,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#settings">
                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                    <span id="greeting">Hi, </span></a>
+                    <span id="greeting">Hi, user</span></a>
             </li>
 
             <div class="sidebar-divider"></div>
@@ -152,12 +152,12 @@
             $.ajax({
                 url: 'api/userDetails',
                 type: 'GET',
-                dataType: 'json',
                 success: function(data){
                     if (data === null) {
-                        window.location.href="login.html";
+                        window.location.href="register.html";
                     } else {
-                        $('#greeting').text('Hi, ' + data.first_name + ' ' + data.last_name);
+                        console.log(data);
+                        $('#greeting').text('Hi, ' + data["first_name"] + ' ' + data["last_name"]);
                     }
                 },
                 // error: function(xhr, status, error) {
