@@ -100,6 +100,7 @@ class Controller {
                 $_SESSION['user_id'] = $userDetails['user_id'];
                 $_SESSION['first_name'] = $userDetails['first_name'];
                 $_SESSION['last_name'] = $userDetails['last_name'];
+                $_SESSION['email'] = $email;
                 return json_encode(["success" => "true"]);
             } else {
                 return json_encode(["error" => "User not found"]);
@@ -107,5 +108,28 @@ class Controller {
         } catch (PDOException $e){
             echo 'Error ' . $e->getMessage();
         }
+    }
+
+    public static function changeDetails($newDetails){
+        $data = json_decode($newDetails, true);
+        try {
+            $conn = self::$connector->connect();
+            $query = $conn->prepare('UPDATE users SET first_name = :first_name, last_name = :last_name, phone_number = :phone_number, address = :address WHERE user_id = :user_id');
+            $query->bindParam(':first_name', $data['first_name']);
+            $query->bindParam(':last_name', $data['last_name']);
+            $query->bindParam(':phone_number', $data['phone_number']);
+            $query->bindParam(':address', $data['address']);
+            $query->bindParam(':user_id', $_SESSION['user_id']);
+
+            $query->execute();
+
+            if ($query){
+                return json_encode(["success" => true]);
+            } else {
+                return json_encode(["success" => false]);
+            }
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        } 
     }
 }

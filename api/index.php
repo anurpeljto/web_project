@@ -22,7 +22,8 @@ Flight::route('GET /userDetails', function() {
     $details = array(
         "user_id" => $_SESSION['user_id'],
         "first_name" => $_SESSION['first_name'],
-        "last_name" => $_SESSION['last_name']
+        "last_name" => $_SESSION['last_name'],
+        "email" => $_SESSION['email']
     );
     if(isset($_SESSION['user_details'])){
         echo json_encode($details);
@@ -59,6 +60,12 @@ Flight::route('POST /register', function() {
 
 Flight::route('GET /logout', function() {
     session_destroy();
+});
+
+Flight::route('POST /changeDetails', function() {
+    $controller = new Controller;
+    $data = Flight::request()->getBody();
+    $controller->changeDetails($data);
 });
 
 
