@@ -170,16 +170,13 @@
         contentType: 'application/json',
         data: JSON.stringify(requestData),
         success: function(response) {
-          if(response.success) {
             console.log('Added task successfully');
-            var upcomingTasks = document.getElementById('upcomingTasks');
-            upcomingTasks.removeChild(ulEle);
-            fetchTasks();
-          } else {
-            console.error('Failed to add task');
-          }
+            // var upcomingTasks = document.getElementById('upcomingTasks');
+            // upcomingTasks.removeChild(ulEle);
+            // fetchTasks();
+            
         }
-      });
+      }).done(location.reload());
       
     });
           
@@ -199,6 +196,7 @@ $(document).on('click', '.mark-done', function(e){
     data: JSON.stringify(dataSend),
     success: function(response){
       alert('Successfully marked task done');
+      location.reload();
     }
   })
 })
