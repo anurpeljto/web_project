@@ -32,6 +32,12 @@ Flight::route('GET /userDetails', function() {
     }
 });
 
+Flight::route('GET /tasks', function() {
+    $controller = new Controller;
+    $user_id = $_SESSION["user_id"];
+    $controller->getTasks($user_id);
+});
+
 
 Flight::route('POST /add_task', function() {
     $data = Flight::request()->getBody();

@@ -67,8 +67,9 @@
     <script>
 $(document).ready(function () {
     $.ajax({
-        url: 'api/get_tasks.php',
+        url: 'api/tasks',
         dataType: 'json',
+        type:'GET',
         success: function (data) {
             var tasks = data.tasks;
 
