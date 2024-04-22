@@ -127,15 +127,15 @@
 
                       }
                       liCheckbox.append(checkbox);
-                      ulElement.append(liCheckbox);
+                      // ulElement.append(liCheckbox);
   
                       var liTitle = $('<li>').addClass('list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent').html('<p class="lead fw-normal mb-0">' + task.title + '</p>');
                       ulElement.append(liTitle);
   
                       var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
                       var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
-                      actionIcons.html('<a href="" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
-                                       '<a href="" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
+                        console.log('Task ID:', task.id);
+                        actionIcons.html('<a href="" class="text-info" data-mdb-toggle="tooltip" title="Mark done"><i class="fas fa-check mr-3 mark-done" data-task-id="' + task.ID + '"></i></a>');            
                       liActions.append(actionIcons);
                       liActions.append('<div class="text-end text-muted"><a href="" class="text-muted"><p class="small mb-0"></i>' + task.due_date + '</p></a></div>');
                       ulElement.append(liActions);
@@ -184,6 +184,24 @@
     });
           
 });
+
+$(document).on('click', '.mark-done', function(e){
+  e.preventDefault();
+  var taskID = $(this).data('task-id');
+  const dataSend = {
+    "task_id": taskID
+  }
+  console.log(taskID);
+  $.ajax({
+    url:'api/mark-done',
+    type:'POST',
+    dataType: 'json',
+    data: JSON.stringify(dataSend),
+    success: function(response){
+      alert('Successfully marked task done');
+    }
+  })
+})
 
 
     

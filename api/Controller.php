@@ -171,4 +171,15 @@ class Controller {
             $conn = null;
         }
     }
+
+    public static function markDone($user_id, $task_id){
+        $database = new Connector();
+        $conn = $database->connect();
+        $stmt = $conn->prepare('DELETE FROM tasks WHERE ID = :task_id AND user_id = :user_id');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':task_id', $task_id);
+        $stmt->execute();
+
+        echo json_encode(["success"=>true]);
+    }
 }

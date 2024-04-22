@@ -81,6 +81,15 @@ Flight::route('POST /changeDetails', function() {
     $controller->changeDetails($data);
 });
 
+Flight::route('POST /mark-done', function() {
+    $controller = new Controller;
+    $user_id = $_SESSION['user_id'];
+    $body = Flight::request()->getBody();
+    $body = json_decode($body, true);
+    $task_id = $body['task_id'];
+    $controller->markDone($user_id, $task_id);
+});
+
 
 Flight::route('*', function() {
     Flight::halt(404, "Page not found");
