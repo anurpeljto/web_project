@@ -9,15 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>ToDoList 3</title>
 
-    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -29,8 +27,8 @@
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <img class="rounded-circle mt-5" width="150px" src="./img/undraw_profile.svg">
-                    <span class="font-weight-bold">John Doe</span>
-                    <span class="text-black-50">johndoe@mail.com.my</span>
+                    <span class="font-weight-bold" id="fullName"></span>
+                    <span class="text-black-50" id="email"></span>
                     <span> </span>
                 </div>
             </div>
@@ -42,25 +40,25 @@
                     <div class="row mt-2">
                         <div class="col-md-6">
                             <label class="labels">Name</label>
-                            <input type="text" class="form-control" placeholder="first name" value="">
+                            <input id="first_name" type="text" class="form-control" placeholder="first name" value="">
                         </div>
                         <div class="col-md-6">
                             <label class="labels">Surname</label>
-                            <input type="text" class="form-control" value="" placeholder="surname">
+                            <input id ="last_name"type="text" class="form-control" value="" placeholder="surname">
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-12">
                             <label class="labels">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="enter phone number" value="">
+                            <input id ="phone_number" type="text" class="form-control" placeholder="enter phone number" value="">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Address Line 1</label>
-                            <input type="text" class="form-control" placeholder="enter address line 1" value="">
+                            <input id="address" type="text" class="form-control" placeholder="enter address line 1" value="">
                         </div>
                         <div class="col-md-12">
                             <label class="labels">Email</label>
-                            <input type="text" class="form-control" placeholder="enter email id" value="">
+                            <input id="emailInput" type="text" class="form-control" placeholder="enter email id" value="">
                         </div>
                     </div>
                     <div class="row mt-3 width-100 d-flex" style="justify-content: space-between;">
@@ -110,7 +108,7 @@
                     <div class="modal-body">Select "Save" below if you are ready to save your new data.</div>
                     <div class="modal-footer">
                         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-success" href="index.html">Save & return to home</a>
+                        <button class="btn btn-success" id="btnSubmit">Save & return to home</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +126,61 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <!-- <script src="js/sb-admin-2.min.js"></script> -->
+
+    <script>
+        $(document).ready(function() {
+            
+            $.ajax({
+                url: 'api/userDetails',
+                type: 'GET',
+                success: function(data){
+                    if (data === null) {
+                        window.location.href="register.html";
+                    } else {
+                        const parsedData = JSON.parse(data);
+                        $('#fullName').text(parsedData["first_name"] + ' ' + parsedData['last_name']);
+                        $('#email').text(parsedData['email']);
+                    }
+                }
+            }
+        );
+
+        });     
+
+        $('#btnSubmit').click(function() {
+            const emailInput = $('#emailInput').val();
+            const first_name = $('#first_name').val();
+            const last_name = $('#last_name').val();
+            const phone_number = $('#phone_number').val();
+            const address = $('#address').val();
+
+
+            const data = {
+                "email": emailInput,
+                "first_name": first_name,
+                "last_name": last_name,
+                "phone_number": phone_number,
+                "address": address
+            }
+            $.ajax({
+                url: 'api/changeDetails',
+                data: JSON.stringify(data),
+                dataType:'json',
+                method: 'POST',
+                success: function(data){
+                    if(data.success === true){
+                        console.log ('Successfully changed data');
+                        window.location.href='index.html';
+
+                    } else {
+                        console.log('Failed to change data');
+                    }
+                }
+            });
+        });
+    </script>
+
 
 </body>
 

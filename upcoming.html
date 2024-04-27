@@ -56,7 +56,7 @@
                                   <input type="date" id="due-date-input" class="form-control">                                  
                               </button>
                               <div>
-                                <button type="button" class="btn btn-success">Add</button>
+                                <button type="button" id="addButton" class="btn btn-success">Add</button>
                               </div>
                             </div>
                           </div>
@@ -105,23 +105,18 @@
         </div>
     </div>
 
-    <!-- AJAX for upcoming page. The difference is that it sorts tasks and limits to displaying only three -->
     <script>
       $(document).ready(function () {
-          $.ajax({
-              url: 'data.json',
+        var ulEle;
+          function fetchTasks() {
+            $.ajax({
+              url: 'api/upcoming',
               dataType: 'json',
+              type:'GET',
               success: function (data) {
-                  var tasks = data.tasks;
+                  var tasks = data.tasks; 
 
-
-                  tasks.sort((a,b) => {
-                    return new Date(a['due-date']) - new Date(b['due-date']);
-                  });
-
-                  var upcTasks = tasks.slice(0,3);
-
-                  upcTasks.forEach(function(task) {
+                  tasks.forEach(function(task) {
                       var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
   
                       var liCheckbox = $('<li>').addClass('list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent');
@@ -132,29 +127,83 @@
 
                       }
                       liCheckbox.append(checkbox);
-                      ulElement.append(liCheckbox);
+                      // ulElement.append(liCheckbox);
   
                       var liTitle = $('<li>').addClass('list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent').html('<p class="lead fw-normal mb-0">' + task.title + '</p>');
                       ulElement.append(liTitle);
   
                       var liActions = $('<li>').addClass('list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent');
                       var actionIcons = $('<div>').addClass('d-flex flex-row justify-content-end');
-                      actionIcons.html('<a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i class="fas fa-pencil-alt mr-3"></i></a>' +
-                                       '<a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i class="fas fa-trash-alt"></i></a>');
+                        console.log('Task ID:', task.id);
+                        actionIcons.html('<a href="" class="text-info" data-mdb-toggle="tooltip" title="Mark done"><i class="fas fa-check mr-3 mark-done" data-task-id="' + task.ID + '"></i></a>');            
                       liActions.append(actionIcons);
-                      var createdDate = new Date(task['due-date']);
-                      liActions.append('<div class="text-end text-muted"><a href="#!" class="text-muted" data-mdb-toggle="tooltip" title="Created date"><p class="small mb-0"></i>' + createdDate.toLocaleDateString() + '</p></a></div>');
+                      liActions.append('<div class="text-end text-muted"><a href="" class="text-muted"><p class="small mb-0"></i>' + task.due_date + '</p></a></div>');
                       ulElement.append(liActions);
   
                       $('#upcomingTasks').append(ulElement);
+                      ulEle = ulElement;
                   });
               }
           });
-          
-      });
+          } 
 
+          fetchTasks();
 
+      const addBtn = document.getElementById('addButton');
+      addBtn.addEventListener('click', () => {
+      const title = document.getElementById('exampleFormControlInput1').value;
+      const due = document.getElementById('due-date-input').value;
+
+      console.log(title);
+      console.log(due);
       
+      const requestData = {
+        title: title,
+        due: due
+      };
+
+      console.log(requestData);
+      $.ajax({
+        url: 'api/add_task',
+        dataType: 'json',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData),
+        success: function(response) {
+            console.log('Added task successfully');
+            // var upcomingTasks = document.getElementById('upcomingTasks');
+            // upcomingTasks.removeChild(ulEle);
+            // fetchTasks();
+            
+        }
+      }).done(location.reload());
+      
+    });
+          
+});
+
+$(document).on('click', '.mark-done', function(e){
+  e.preventDefault();
+  var taskID = $(this).data('task-id');
+  const dataSend = {
+    "task_id": taskID
+  }
+  console.log(taskID);
+  $.ajax({
+    url:'api/mark-done',
+    type:'POST',
+    dataType: 'json',
+    data: JSON.stringify(dataSend),
+    success: function(response){
+      alert('Successfully marked task done');
+      location.reload();
+    }
+  })
+})
+
+
+    
+    
   </script>
   
   

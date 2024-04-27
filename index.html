@@ -50,7 +50,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#settings">
                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                    <span>Hi, John Doe</span></a>
+                    <span id="greeting">Hi, user</span></a>
             </li>
 
             <div class="sidebar-divider"></div>
@@ -130,7 +130,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" id="logoutBtn">Logout</a>
                 </div>
             </div>
         </div>
@@ -147,7 +147,41 @@
     <!-- <script src="js/sb-admin-2.min.js"></script> -->
 
     <script src="js/script.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'api/userDetails',
+                type: 'GET',
+                success: function(data){
+                    if (data === null) {
+                        window.location.href="register.html";
+                    } else {
+                        const parsedData = JSON.parse(data);
+                        console.log(data);
+                        $('#greeting').text('Hi, ' + parsedData['first_name'] + ' ' + parsedData["last_name"]);
+                    }
+                },
+                // error: function(xhr, status, error) {
+                //     if(xhr.status === 401){
+                //         window.location.href="login.html";
+                //     } else {
+                //         console.error("Error " + error);
+                //     }
+                // }
+                
+            });
 
+            $('#logoutBtn').click(function() {
+                $.ajax({
+                    url: 'api/logout',
+                    type: 'GET',
+                    success: function(response){
+                        window.location.href="login.html";
+                    }
+                })
+            })
+        });      
+    </script>
     
 </body>
 
