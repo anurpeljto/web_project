@@ -67,7 +67,7 @@
     <script>
 $(document).ready(function () {
     $.ajax({
-        url: 'api/tasks',
+        url: 'rest/routes/tasks',
         dataType: 'json',
         type:'GET',
         success: function (data) {
@@ -108,7 +108,7 @@ $(document).ready(function () {
   }
   console.log(taskID);
   $.ajax({
-    url:'api/mark-done',
+    url:'rest/routes/mark-done',
     type:'POST',
     dataType: 'json',
     data: JSON.stringify(dataSend),

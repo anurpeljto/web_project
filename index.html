@@ -83,10 +83,8 @@
             
 
 
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>ToDo List</strong> is packed with premium features, components,
@@ -111,7 +109,6 @@
             </section>
 
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -150,7 +147,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: 'api/userDetails',
+                url: 'rest/routes/userDetails',
                 type: 'GET',
                 success: function(data){
                     if (data === null) {
@@ -173,7 +170,7 @@
 
             $('#logoutBtn').click(function() {
                 $.ajax({
-                    url: 'api/logout',
+                    url: 'rest/routes/logout',
                     type: 'GET',
                     success: function(response){
                         window.location.href="login.html";

@@ -132,7 +132,7 @@
         $(document).ready(function() {
             
             $.ajax({
-                url: 'api/userDetails',
+                url: 'rest/routes/userDetails',
                 type: 'GET',
                 success: function(data){
                     if (data === null) {
@@ -164,7 +164,7 @@
                 "address": address
             }
             $.ajax({
-                url: 'api/changeDetails',
+                url: 'rest/routes/changeDetails',
                 data: JSON.stringify(data),
                 dataType:'json',
                 method: 'POST',

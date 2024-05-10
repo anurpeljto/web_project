@@ -109,14 +109,14 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: 'api/login',
+                    url: 'rest/routes/login',
                     data: JSON.stringify(data),
                     dataType: 'json',
                     success: function(response) {
                         if(response.success === true){
                             $.ajax({
                                 type: 'POST',
-                                url: 'api/userDetails',
+                                url: 'rest/routes/userDetails',
                                 data: JSON.stringify(data),
                                 dataType: 'json',
                                 success: function(response){

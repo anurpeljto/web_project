@@ -110,7 +110,7 @@
         var ulEle;
           function fetchTasks() {
             $.ajax({
-              url: 'api/upcoming',
+              url: 'rest/routes/upcoming',
               dataType: 'json',
               type:'GET',
               success: function (data) {
@@ -164,7 +164,7 @@
 
       console.log(requestData);
       $.ajax({
-        url: 'api/add_task',
+        url: 'rest/routes/add_task',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
@@ -190,7 +190,7 @@ $(document).on('click', '.mark-done', function(e){
   }
   console.log(taskID);
   $.ajax({
-    url:'api/mark-done',
+    url:'rest/routes/mark-done',
     type:'POST',
     dataType: 'json',
     data: JSON.stringify(dataSend),
