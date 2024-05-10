@@ -9,6 +9,7 @@ class TaskDAO extends BaseDAO {
     
     public function addTask($taskDetails, $user_id){
         try {
+            $taskDetails = json_decode($taskDetails, true);
             $conn = self::$connector->connect();
             $stmt = $conn->prepare('INSERT INTO tasks (title, due_date, user_id) VALUES (:title, :due, :user_id)');
             $stmt->bindParam(':title', $taskDetails['title']);
