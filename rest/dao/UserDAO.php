@@ -1,6 +1,10 @@
 <?php
 
 require_once 'BaseDAO.php';
+require '../../vendor/autoload.php';
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 
 class UserDAO extends BaseDAO {
     public function __construct(){
@@ -18,7 +22,8 @@ class UserDAO extends BaseDAO {
 
             if($user){
                 if (password_verify($userDetails['password'], $user['password'])){
-                    return true;
+                    $token = JWT::encode(['user_id' => $user['user_id']], JWT_SECRET, 'HS256');
+                    return $token;
                 }
             } else{
                 return false;
@@ -59,22 +64,17 @@ class UserDAO extends BaseDAO {
         }
     }
 
-    public function getUserDetails($emailData){
+    public function getUserDetails($token){
         try {
-            $data = json_decode($emailData, true);
-            $email = $data["email"];
+            $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
+            $user_id = $decoded->user_id;
             $conn = self::$connector->connect();
-            $stmt = $conn->prepare('SELECT user_id, first_name, last_name FROM users WHERE email = :email'); 
-            $stmt->bindParam(':email', $email);
+            $stmt = $conn->prepare('SELECT user_id, first_name, last_name FROM users WHERE user_id = :user_id'); 
+            $stmt->bindParam(':user_id', $user_id);
             $stmt->execute();
             $userDetails = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if($userDetails){
-                $_SESSION['user_details'] = $userDetails;
-                $_SESSION['user_id'] = $userDetails['user_id'];
-                $_SESSION['first_name'] = $userDetails['first_name'];
-                $_SESSION['last_name'] = $userDetails['last_name'];
-                $_SESSION['email'] = $email;
                 return $userDetails;
             } else {
                 return [];
@@ -84,8 +84,10 @@ class UserDAO extends BaseDAO {
         }
     }
 
-    public function changeDetails($newDetails){
+    public function changeDetails($token, $newDetails){
         try {
+            $decoded = JWT::decode($token, JWT_SECRET, 'HS256');
+            $user_id = $decoded->user_id;
             $data = json_decode($newDetails, true);
             $conn = self::$connector->connect();
             $query = $conn->prepare('UPDATE users SET first_name = :first_name, last_name = :last_name, phone_number = :phone_number, address = :address WHERE user_id = :user_id');
@@ -93,7 +95,7 @@ class UserDAO extends BaseDAO {
             $query->bindParam(':last_name', $data['last_name']);
             $query->bindParam(':phone_number', $data['phone_number']);
             $query->bindParam(':address', $data['address']);
-            $query->bindParam(':user_id', $_SESSION['user_id']);
+            $query->bindParam(':user_id', $user_id);
             $query->execute();
 
             return true;

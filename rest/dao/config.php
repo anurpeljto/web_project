@@ -7,3 +7,4 @@ define('password', 'root');
 // private $db = 'my_database';
 // private $user = 'root';
 // private $password = 'root';
+define('JWT_SECRET', 'sifra123');

@@ -114,10 +114,12 @@
                     dataType: 'json',
                     success: function(response) {
                         if(response.success === true){
+                            const token = response.token;
+                            localStorage.setItem('token', token);
                             $.ajax({
                                 type: 'POST',
                                 url: 'rest/routes/userDetails',
-                                data: JSON.stringify(data),
+                                data: JSON.stringify({"token": token}),
                                 dataType: 'json',
                                 success: function(response){
                                     console.log(response);

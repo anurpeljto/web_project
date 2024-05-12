@@ -67,7 +67,9 @@ $userService = new UserService();
 
 Flight::route('POST /userDetails', function() use ($userService) {
     $body = Flight::request()->getBody();
-    $userDetails = $userService->getUserDetails($body);
+    $body_dec = json_decode($body, true);
+    $token = $body_dec['token'];
+    $userDetails = $userService->getUserDetails($token);
     echo json_encode($userDetails);
 });
 
@@ -123,15 +125,11 @@ Flight::route('POST /userDetails', function() use ($userService) {
  * )
  */
 
-Flight::route('GET /userDetails', function() {
-    $details = array(
-        "user_id" => $_SESSION['user_id'],
-        "first_name" => $_SESSION['first_name'],
-        "last_name" => $_SESSION['last_name'],
-        "email" => $_SESSION['email']
-    );
-    if(isset($_SESSION['user_details'])){
-        echo json_encode($details);
+Flight::route('GET /userDetails', function() use ($userService) {
+    $token = Flight::request()->query['token'];
+    $userDetails = $userService->getUserDetails($token);
+    if($userDetails){
+        echo json_encode($userDetails);
     } else {
         echo 'Not logged in';
     }
@@ -201,9 +199,9 @@ Flight::route('GET /userDetails', function() {
 
 Flight::route('POST /login', function() use ($userService) {
     $body = Flight::request()->getBody();
-    $res = $userService->login($body);
-    if($res) {
-        echo json_encode(["success" => true]);
+    $token = $userService->login($body);
+    if($token) {
+        echo json_encode(["success" => true, "token" => $token]);
     } else {
         echo json_encode(["success" => false, "error" => "Wrong password"]);
     }
