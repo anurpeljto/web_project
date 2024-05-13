@@ -9,19 +9,19 @@ class TaskService {
         $this->taskDAO = new TaskDAO();
     }
 
-    public function addTask($taskDetails, $user_id){
-        return $this->taskDAO->addTask($taskDetails, $user_id);
+    public function addTask($taskDetails){
+        return $this->taskDAO->addTask($taskDetails);
     }
 
-    public function getTasks($user_id){
-        return $this->taskDAO->getTasks($user_id);
+    public function getTasks(){
+        return $this->taskDAO->getTasks();
     }
 
-    public function getUpcoming($user_id){
-        return $this->taskDAO->getUpcoming($user_id);
+    public function getUpcoming(){
+        return $this->taskDAO->getUpcoming();
     }
 
-    public function markDone($user_id, $task_id){
-        return $this->taskDAO->markDone($user_id, $task_id);
+    public function markDone($task_id){
+        return $this->taskDAO->markDone($task_id);
     }
 }

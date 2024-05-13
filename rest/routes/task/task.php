@@ -11,6 +11,7 @@ $taskService = new TaskService();
  *     path="/tasks",
  *     summary="Get all tasks",
  *     tags={"Tasks"},
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\Response(
  *         response=200,
  *         description="Successful operation",
@@ -18,18 +19,16 @@ $taskService = new TaskService();
  * )
  */
 Flight::route('GET /tasks', function() use ($taskService) {
-    $token = Flight::request()->query['token'];
-    $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
-    $user_id = $decoded->user_id;
-    $tasks = $taskService->getTasks($user_id);
-    echo json_encode(['tasks'=>$tasks]);
+    $tasks = $taskService->getTasks();
+    Flight::response($tasks);
 });
 
 /**
  * @OA\Get(
  *     path="/upcoming",
  *     summary="Get all upcoming tasks",
- *     tags={"upcoming"},
+ *     tags={"Tasks"},
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\Response(
  *         response=200,
  *         description="Successful operation",
@@ -38,11 +37,8 @@ Flight::route('GET /tasks', function() use ($taskService) {
  */
 
 Flight::route('GET /upcoming', function() use ($taskService) {
-    $token = Flight::request()->query['token'];
-    $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
-    $user_id = $decoded->user_id;
-    $tasks = $taskService->getUpcoming($user_id);
-    echo json_encode(['tasks'=>$tasks]);
+    $tasks = $taskService->getUpcoming();
+    Flight::response($tasks);
 });
 
 /**
@@ -50,7 +46,8 @@ Flight::route('GET /upcoming', function() use ($taskService) {
  *     path="/add_task",
  *     security={{"ApiKeyAuth": {}}},
  *     description="Add task",
- *     tags={"insert"},
+ *     tags={"Tasks"},
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\RequestBody(
  *         description="Add new task",
  *         required=true,
@@ -86,11 +83,12 @@ Flight::route('GET /upcoming', function() use ($taskService) {
 
 Flight::route('POST /add_task', function() use ($taskService) {
     $data = Flight::request()->getBody();
-    $token = Flight::request()->query['token'];
-    $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
-    $user_id = $decoded->user_id;
     $result = $taskService->addTask($data, $user_id);
-    echo json_encode(["success" => $result]);
+    if(!$result){
+        Flight::halt(500, 'Failed to add task');
+    } else {
+        Flight::response()->status(200);
+    }
 });
 
 /** 
@@ -98,7 +96,8 @@ Flight::route('POST /add_task', function() use ($taskService) {
  *  path="/mark-done",
  *  security={{"ApiKeyAuth": {}}},
  *  description="Mark task as done",
- *  tags={"done"},
+ *  tags={"Tasks"},
+ *  security={{"ApiAuthKey": {}}},
  *  @OA\RequestBody(
  *      description="Mark task done",
  *      required=true,
@@ -126,14 +125,15 @@ Flight::route('POST /add_task', function() use ($taskService) {
  */
 
 Flight::route('POST /mark-done', function() use ($taskService) {
-    $token = Flight::request()->query['token'];
-    $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
-    $user_id = $decoded->user_id;
     $body = Flight::request()->getBody();
     $body = json_decode($body, true);
-    $task_id = $body['task_id'];
-    $result = $taskService->markDone($user_id, $task_id);
-    echo json_encode(["success"=> $result]);
+    $result = $taskService->markDone($task_id);
+    if(!$result){
+        Flight::halt(500, 'Error');
+    }
+    else {
+        Flight::response()->status(200);
+    }
 });
 
 // Flight::start();
