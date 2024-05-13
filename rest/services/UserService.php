@@ -17,8 +17,8 @@ class UserService {
         return $this->userDAO->register($userDetails);
     }
 
-    public function getUserDetails($token){
-        return $this->userDAO->getUserDetails($token);
+    public function getUserDetails(){
+        return $this->userDAO->getUserDetails();
     }
 
     public function changeDetails($newDetails){

@@ -151,6 +151,9 @@
                 url: 'rest/routes/userDetails',
                 type: 'POST',
                 data: JSON.stringify({"token":token}),
+                headers: {
+                    'Token':token
+                },
                 success: function(data){
                     if (data === null) {
                         window.location.href="register.html";
@@ -174,6 +177,9 @@
                 $.ajax({
                     url: 'rest/routes/logout',
                     type: 'GET',
+                    headers:{
+                        'Token': token
+                    },
                     success: function(response){
                         localStorage.removeItem("token");
                         window.location.href="login.html";

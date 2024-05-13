@@ -21,7 +21,7 @@ class UserDAO extends BaseDAO {
             $user = $stmt->fetch();
 
             if($user){
-                if (password_verify($userDetails['password'], $user['password'])){
+                if (password_verify($userDetails['password'], $user['password']) && $userDetails['email'] != null && $userDetails['password'] != null){
                     $token = JWT::encode(['user_id' => $user['user_id']], JWT_SECRET, 'HS256');
                     Flight::response()->header('Token', $token);
                     return $token;
@@ -65,8 +65,12 @@ class UserDAO extends BaseDAO {
         }
     }
 
-    public function getUserDetails($token){
+    public function getUserDetails(){
         try {
+            $token = Flight::request()->getHeader('Token');
+            if(!$token){
+                Flight::halt(404, 'No auth token');
+            }
             $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             $user_id = $decoded->user_id;
             $conn = self::$connector->connect();
@@ -78,7 +82,7 @@ class UserDAO extends BaseDAO {
             if($userDetails){
                 return $userDetails;
             } else {
-                return [];
+                return false;
             }
         } catch (PDOException $e){
             return [];

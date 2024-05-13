@@ -7,26 +7,11 @@ require __DIR__ . '/../../services/UserService.php';
 $userService = new UserService();
 
 /**
- * @OA\Post(
+ * @OA\GET(
  *     path="/userDetails",
  *     description="Get user details",
  *     tags={"User"},
- *     @OA\RequestBody(
- *         description="User JWT token",
- *         required=true,
- *         @OA\MediaType(
- *             mediaType="application/json",
- *             @OA\Schema(
- *                 type="object",
- *                 @OA\Property(
- *                     property="token",
- *                     type="string",
- *                     example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNn0.bshGK3WYOLKL1gucju_Ap1aTmemiiXlULU0oB9ggbTY",
- *                     description="User's JWT token"
- *                 )
- *             )
- *         )
- *     ),
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\Response(
  *         response=200,
  *         description="User details retrieved successfully",
@@ -68,16 +53,14 @@ $userService = new UserService();
 Flight::route('POST /userDetails', function() use ($userService) {
     $body = Flight::request()->getBody();
     $body_dec = json_decode($body, true);
-    $token = $body_dec['token'];
-    $userDetails = $userService->getUserDetails($token);
+    $userDetails = $userService->getUserDetails();
     echo json_encode($userDetails);
 });
 
 
 
 Flight::route('GET /userDetails', function() use ($userService) {
-    $token = Flight::request()->query['token'];
-    $userDetails = $userService->getUserDetails($token);
+    $userDetails = $userService->getUserDetails();
     if($userDetails){
         echo json_encode($userDetails);
     } else {
@@ -242,6 +225,7 @@ Flight::route('POST /register', function() use ($userService) {
  *     path="/logout",
  *     description="Logout user",
  *     tags={"User"},
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\Response(
  *         response=200,
  *         description="Logout successful"
@@ -250,7 +234,12 @@ Flight::route('POST /register', function() use ($userService) {
  */
 
 Flight::route('GET /logout', function() {
-    echo 'User logged out';
+    $token = Flight::request()->getHeader('Token');
+    if(!$token){
+        Flight::response(404, 'User not logged in');
+    }
+    $token = null;
+    Flight::response(200, 'User logged out');
 });
 
 /**
