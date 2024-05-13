@@ -121,6 +121,9 @@
                                 url: 'rest/routes/userDetails',
                                 data: JSON.stringify({"token": token}),
                                 dataType: 'json',
+                                headers: {
+                                    'Authorization': token
+                                },
                                 success: function(response){
                                     console.log(response);
                                 }

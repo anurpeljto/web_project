@@ -175,6 +175,7 @@
                     url: 'rest/routes/logout',
                     type: 'GET',
                     success: function(response){
+                        localStorage.removeItem("token");
                         window.location.href="login.html";
                     }
                 })

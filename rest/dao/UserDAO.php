@@ -23,6 +23,7 @@ class UserDAO extends BaseDAO {
             if($user){
                 if (password_verify($userDetails['password'], $user['password'])){
                     $token = JWT::encode(['user_id' => $user['user_id']], JWT_SECRET, 'HS256');
+                    Flight::response()->header('Token', $token);
                     return $token;
                 }
             } else{
@@ -84,9 +85,13 @@ class UserDAO extends BaseDAO {
         }
     }
 
-    public function changeDetails($token, $newDetails){
+    public function changeDetails($newDetails){
         try {
-            $decoded = JWT::decode($token, JWT_SECRET, 'HS256');
+            $token = Flight::request()->getHeader('Token');
+            $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
+
+            // Flight::json(['jwt_decoded' =>$decoded, 'user_id' => $decoded->user_id]);
+
             $user_id = $decoded->user_id;
             $data = json_decode($newDetails, true);
             $conn = self::$connector->connect();

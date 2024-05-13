@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/../../../vendor/autoload.php';
-define ('BASE_URL', 'http:localhost:8888/web_project/rest/routes/');
+define ('BASE_URL', '../../../rest/routes/');
 
 
 $openapi = \OpenApi\Generator::scan(['../../../rest/routes/', './']);

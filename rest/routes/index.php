@@ -18,7 +18,7 @@ require __DIR__ . '/task/task.php';
 
 
 Flight::route('*', function() {
-    Flight::halt(404, "Pagasdae not found");
+    Flight::halt(404, "Page not found");
 });
 
 Flight::start();

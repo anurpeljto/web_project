@@ -149,6 +149,7 @@
         });     
 
         $('#btnSubmit').click(function() {
+            const token = localStorage.getItem('token');
             const emailInput = $('#emailInput').val();
             const first_name = $('#first_name').val();
             const last_name = $('#last_name').val();
@@ -168,6 +169,9 @@
                 data: JSON.stringify(data),
                 dataType:'json',
                 method: 'POST',
+                headers: {
+                    'Token':token
+                },
                 success: function(data){
                     if(data.success === true){
                         console.log ('Successfully changed data');

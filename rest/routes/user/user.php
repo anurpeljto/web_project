@@ -12,17 +12,17 @@ $userService = new UserService();
  *     description="Get user details",
  *     tags={"User"},
  *     @OA\RequestBody(
- *         description="User email",
+ *         description="User JWT token",
  *         required=true,
  *         @OA\MediaType(
  *             mediaType="application/json",
  *             @OA\Schema(
  *                 type="object",
  *                 @OA\Property(
- *                     property="email",
+ *                     property="token",
  *                     type="string",
- *                     example="john@example.com",
- *                     description="User's email address"
+ *                     example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNn0.bshGK3WYOLKL1gucju_Ap1aTmemiiXlULU0oB9ggbTY",
+ *                     description="User's JWT token"
  *                 )
  *             )
  *         )
@@ -73,57 +73,7 @@ Flight::route('POST /userDetails', function() use ($userService) {
     echo json_encode($userDetails);
 });
 
-/**
- * @OA\Get(
- *     path="/userDetails",
- *     description="Retrieve user details",
- *     tags={"User"},
- *     @OA\Response(
- *         response=200,
- *         description="User details retrieved successfully",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="user_id",
- *                 type="integer",
- *                 example="1",
- *                 description="User ID"
- *             ),
- *             @OA\Property(
- *                 property="first_name",
- *                 type="string",
- *                 example="John",
- *                 description="User's first name"
- *             ),
- *             @OA\Property(
- *                 property="last_name",
- *                 type="string",
- *                 example="Doe",
- *                 description="User's last name"
- *             ),
- *             @OA\Property(
- *                 property="email",
- *                 type="string",
- *                 example="john@example.com",
- *                 description="User's email address"
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=401,
- *         description="Unauthorized",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="error",
- *                 type="string",
- *                 example="User not logged in",
- *                 description="Error message indicating user is not logged in"
- *             )
- *         )
- *     )
- * )
- */
+
 
 Flight::route('GET /userDetails', function() use ($userService) {
     $token = Flight::request()->query['token'];
@@ -150,13 +100,13 @@ Flight::route('GET /userDetails', function() use ($userService) {
  *                 @OA\Property(
  *                     property="email",
  *                     type="string",
- *                     example="john@example.com",
+ *                     example="anurpeljto@gmail.com",
  *                     description="User's email address"
  *                 ),
  *                 @OA\Property(
  *                     property="password",
  *                     type="string",
- *                     example="password123",
+ *                     example="anurpeljto",
  *                     description="User's password"
  *                 )
  *             )
@@ -222,7 +172,7 @@ Flight::route('POST /login', function() use ($userService) {
  *                 @OA\Property(
  *                     property="email",
  *                     type="string",
- *                     example="john@example.com",
+ *                     example="newtest4swaggerr@example.com",
  *                     description="User's email address"
  *                 ),
  *                 @OA\Property(
@@ -300,7 +250,7 @@ Flight::route('POST /register', function() use ($userService) {
  */
 
 Flight::route('GET /logout', function() {
-    session_destroy();
+    echo 'User logged out';
 });
 
 /**
@@ -308,6 +258,7 @@ Flight::route('GET /logout', function() {
  *     path="/changeDetails",
  *     description="Change user details",
  *     tags={"User"},
+ *     security={{"ApiAuthKey": {}}},
  *     @OA\RequestBody(
  *         description="New user details",
  *         required=true,
@@ -377,10 +328,14 @@ Flight::route('GET /logout', function() {
  * )
  */
 
+
+
+
+
 Flight::route('POST /changeDetails', function() use ($userService) {
     $data = Flight::request()->getBody();
     $result = $userService->changeDetails($data);
     echo json_encode(["success" => $result]);
 });
 
-
+// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNn0.bshGK3WYOLKL1gucju_Ap1aTmemiiXlULU0oB9ggbTY
