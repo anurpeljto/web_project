@@ -134,9 +134,9 @@ Flight::route('POST /login', function() use ($userService) {
     $body = Flight::request()->getBody();
     $token = $userService->login($body);
     if($token) {
-        echo json_encode(["success" => true, "token" => $token]);
+        Flight::response()->status(200, "Successfully logged in");
     } else {
-        echo json_encode(["success" => false, "error" => "Wrong password"]);
+        Flight::halt(401, 'Failed to log in');
     }
 });
 
