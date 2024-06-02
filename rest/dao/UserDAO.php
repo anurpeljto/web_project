@@ -42,7 +42,6 @@ class UserDAO extends BaseDAO {
             $email = $userDetails['email'];
             $check->bindParam(':email', $email);
             $check->execute();
-
             $account = $check->fetch();
             if ($account){
                 return false; 

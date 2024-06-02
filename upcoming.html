@@ -108,13 +108,15 @@
     <script>
       $(document).ready(function () {
         var ulEle;
+        const token = localStorage.getItem('token');
           function fetchTasks() {
             $.ajax({
               url: 'rest/routes/upcoming',
               dataType: 'json',
               type:'GET',
+              headers: {'Token' : token},
               success: function (data) {
-                  var tasks = data.tasks; 
+                  var tasks = data.upcoming; 
 
                   tasks.forEach(function(task) {
                       var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
@@ -169,6 +171,7 @@
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
+        headers: {'Token' : token},
         success: function(response) {
             console.log('Added task successfully');
             // var upcomingTasks = document.getElementById('upcomingTasks');
@@ -194,6 +197,7 @@ $(document).on('click', '.mark-done', function(e){
     type:'POST',
     dataType: 'json',
     data: JSON.stringify(dataSend),
+    headers: {'Token' : token},
     success: function(response){
       alert('Successfully marked task done');
       location.reload();

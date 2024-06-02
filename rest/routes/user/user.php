@@ -1,10 +1,11 @@
 <?php
 
 require __DIR__ . '/../../services/UserService.php';
-
+require_once __DIR__ . '/../middleware/checkAuth.php';
 
 
 $userService = new UserService();
+$authClass = new AuthenticationMiddleware();
 
 /**
  * @OA\GET(
@@ -66,7 +67,7 @@ Flight::route('GET /userDetails', function() use ($userService) {
     } else {
         echo 'Not logged in';
     }
-});
+})->addMiddleware($authClass);
 
 /**
  * @OA\Post(
@@ -134,7 +135,7 @@ Flight::route('POST /login', function() use ($userService) {
     $body = Flight::request()->getBody();
     $token = $userService->login($body);
     if($token) {
-        Flight::response()->status(200, "Successfully logged in");
+        Flight::json(["success" => true, "token" => $token]);
     } else {
         Flight::halt(401, 'Failed to log in');
     }
@@ -240,7 +241,7 @@ Flight::route('GET /logout', function() {
     }
     $token = null;
     Flight::response(200, 'User logged out');
-});
+})->addMiddleware($authClass);
 
 /**
  * @OA\Post(
@@ -325,6 +326,6 @@ Flight::route('POST /changeDetails', function() use ($userService) {
     $data = Flight::request()->getBody();
     $result = $userService->changeDetails($data);
     echo json_encode(["success" => $result]);
-});
+})->addMiddleware($authClass);
 
 // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozNn0.bshGK3WYOLKL1gucju_Ap1aTmemiiXlULU0oB9ggbTY

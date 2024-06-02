@@ -1,10 +1,12 @@
 <?php
 
 require __DIR__ . '/../../services/TaskService.php';
+require_once __DIR__ . '/../middleware/checkAuth.php';
 use Firebase\JWT\JWT;
 
 
 $taskService = new TaskService();
+$authClass = new AuthenticationMiddleware();
 
 /**
  * @OA\Get(
@@ -21,7 +23,7 @@ $taskService = new TaskService();
 Flight::route('GET /tasks', function() use ($taskService) {
     $tasks = $taskService->getTasks();
     Flight::response($tasks);
-});
+})->addMiddleware($authClass);
 
 /**
  * @OA\Get(
@@ -39,7 +41,7 @@ Flight::route('GET /tasks', function() use ($taskService) {
 Flight::route('GET /upcoming', function() use ($taskService) {
     $tasks = $taskService->getUpcoming();
     Flight::response($tasks);
-});
+})->addMiddleware($authClass);
 
 /**
  * @OA\Post(
@@ -83,13 +85,13 @@ Flight::route('GET /upcoming', function() use ($taskService) {
 
 Flight::route('POST /add_task', function() use ($taskService) {
     $data = Flight::request()->getBody();
-    $result = $taskService->addTask($data, $user_id);
+    $result = $taskService->addTask($data);
     if(!$result){
         Flight::halt(500, 'Failed to add task');
     } else {
         Flight::response()->status(200);
     }
-});
+})->addMiddleware($authClass);
 
 /** 
  * @OA\Post(
@@ -127,6 +129,7 @@ Flight::route('POST /add_task', function() use ($taskService) {
 Flight::route('POST /mark-done', function() use ($taskService) {
     $body = Flight::request()->getBody();
     $body = json_decode($body, true);
+    $task_id = $body["task_id"];    
     $result = $taskService->markDone($task_id);
     if(!$result){
         Flight::halt(500, 'Error');
@@ -134,6 +137,6 @@ Flight::route('POST /mark-done', function() use ($taskService) {
     else {
         Flight::response()->status(200);
     }
-});
+})->addMiddleware($authClass);
 
 // Flight::start();

@@ -130,12 +130,14 @@
 
     <script>
         $(document).ready(function() {
-            
+            const token = localStorage.getItem('token');
             $.ajax({
                 url: 'rest/routes/userDetails',
                 type: 'GET',
+                headers: {'Token' : token},
                 success: function(data){
                     if (data === null) {
+                        alert('User not found');
                         window.location.href="register.html";
                     } else {
                         const parsedData = JSON.parse(data);

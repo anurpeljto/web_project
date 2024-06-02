@@ -53,9 +53,9 @@ class TaskDAO extends BaseDAO {
     public function getUpcoming(){
         try {
             $token = Flight::request()->getHeader('Token');
-            if(!$token){
-                Flight::halt(404, 'No auth token');
-            }
+            // if(!$token){
+            //     Flight::halt(404, 'No auth token');
+            // }
             $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             $user_id = $decoded->user_id;
             $conn = self::$connector->connect();

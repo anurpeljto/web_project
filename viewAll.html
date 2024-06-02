@@ -66,10 +66,12 @@
 
     <script>
 $(document).ready(function () {
+    const token = localStorage.getItem('token');
     $.ajax({
         url: 'rest/routes/tasks',
         dataType: 'json',
         type:'GET',
+        headers: {'Token' : token},
         success: function (data) {
             var tasks = data.tasks;
 
@@ -112,6 +114,7 @@ $(document).ready(function () {
     type:'POST',
     dataType: 'json',
     data: JSON.stringify(dataSend),
+    headers: {'Token' : token},
     success: function(response){
       alert('Successfully marked task done');
       location.reload();
