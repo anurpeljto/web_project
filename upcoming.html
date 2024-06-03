@@ -187,6 +187,7 @@
 
 $(document).on('click', '.mark-done', function(e){
   e.preventDefault();
+  const token = localStorage.getItem('token');
   var taskID = $(this).data('task-id');
   const dataSend = {
     "task_id": taskID

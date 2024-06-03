@@ -103,23 +103,23 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '.mark-done', function(e){
-  e.preventDefault();
-  var taskID = $(this).data('task-id');
-  const dataSend = {
-    "task_id": taskID
-  }
-  console.log(taskID);
-  $.ajax({
-    url:'rest/routes/mark-done',
-    type:'POST',
-    dataType: 'json',
-    data: JSON.stringify(dataSend),
-    headers: {'Token' : token},
-    success: function(response){
-      alert('Successfully marked task done');
-      location.reload();
+    e.preventDefault();
+    var taskID = $(this).data('task-id');
+    const dataSend = {
+        "task_id": taskID
     }
-  })
+    console.log(taskID);
+    $.ajax({
+        url:'rest/routes/mark-done',
+        type:'POST',
+        dataType: 'json',
+        data: JSON.stringify(dataSend),
+        headers: {'Token' : token},
+        success: function(response){
+        alert('Successfully marked task done');
+        location.reload();
+        }
+    })
 })
 });
 </script>
