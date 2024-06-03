@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+require '../../vndr/autoload.php';
 use Firebase\JWT\JWT;
 
 

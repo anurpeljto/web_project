@@ -1,7 +1,7 @@
 <?php
 
 require_once 'BaseDAO.php';
-require '../../vendor/autoload.php';
+require '../../vndr/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
