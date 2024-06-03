@@ -6,10 +6,11 @@ use Firebase\JWT\Key;
 
 class AuthenticationMiddleware{
     public function before(){
+        print_r('Executing middleware');
         $token = Flight::request()->getHeader('Token');
         if(!$token){
-            header('Location: ../../../login.html');
-            exit();
+            Flight::halt(401, 'Unauthorized');
+            
         }
         $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
     }
