@@ -201,7 +201,7 @@ $(document).on('click', '.mark-done', function(e){
     headers: {'Token' : token},
     success: function(response){
       alert('Successfully marked task done');
-      location.reload();
+      window.location.reload();
     }
   })
 })
