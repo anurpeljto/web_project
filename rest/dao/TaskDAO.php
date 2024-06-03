@@ -13,9 +13,9 @@ class TaskDAO extends BaseDAO {
     public function addTask($taskDetails){
         try {
             $token = Flight::request()->getHeader('Token');
-            if(!$token){
-                Flight::halt(404, 'No auth token');
-            }
+            // if(!$token){
+            //     Flight::halt(404, 'No auth token');
+            // }
             $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             $user_id = $decoded->user_id;
             
@@ -35,9 +35,9 @@ class TaskDAO extends BaseDAO {
     public function getTasks(){
         try {
             $token = Flight::request()->getHeader('Token');
-            if(!$token){
-                Flight::halt(404, 'No auth token');
-            }
+            // if(!$token){
+            //     Flight::halt(404, 'No auth token');
+            // }
             $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             $user_id = $decoded->user_id;
             $conn = self::$connector->connect();
@@ -71,9 +71,9 @@ class TaskDAO extends BaseDAO {
     public function markDone($task_id){
         try {
             $token = Flight::request()->getHeader('Token');
-            if(!$token){
-                Flight::halt(404, 'No auth token');
-            }
+            // if(!$token){
+            //     Flight::halt(404, 'No auth token');
+            // }
             $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
             $user_id = $decoded->user_id;
             $conn = self::$connector->connect();

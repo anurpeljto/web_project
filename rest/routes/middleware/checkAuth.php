@@ -11,7 +11,7 @@ class AuthenticationMiddleware{
             Flight::halt(401, 'Unauthorized');
             
         }
-        $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
+        // return $decoded = JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
     }
 }
 
