@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>ToDo List</title>
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vndr/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -60,16 +60,18 @@
     </div>
     <!-- Bootstrap core JavaScript-->
     <!-- Core plugin JavaScript-->
-    <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    <!-- <script src="vndr/jquery-easing/jquery.easing.min.js"></script> -->
     <!-- Custom scripts for all pages-->
     <!-- <script src="js/sb-admin-2.min.js"></script> -->
 
     <script>
 $(document).ready(function () {
+    const token = localStorage.getItem('token');
     $.ajax({
-        url: 'api/tasks',
+        url: 'rest/routes/tasks',
         dataType: 'json',
         type:'GET',
+        headers: {'Token' : token},
         success: function (data) {
             var tasks = data.tasks;
 
@@ -101,22 +103,23 @@ $(document).ready(function () {
         }
     });
     $(document).on('click', '.mark-done', function(e){
-  e.preventDefault();
-  var taskID = $(this).data('task-id');
-  const dataSend = {
-    "task_id": taskID
-  }
-  console.log(taskID);
-  $.ajax({
-    url:'api/mark-done',
-    type:'POST',
-    dataType: 'json',
-    data: JSON.stringify(dataSend),
-    success: function(response){
-      alert('Successfully marked task done');
-      location.reload();
+    e.preventDefault();
+    var taskID = $(this).data('task-id');
+    const dataSend = {
+        "task_id": taskID
     }
-  })
+    console.log(taskID);
+    $.ajax({
+        url:'rest/routes/mark-done',
+        type:'POST',
+        dataType: 'json',
+        data: JSON.stringify(dataSend),
+        headers: {'Token' : token},
+        success: function(response){
+        alert('Successfully marked task done');
+        window.location.reload();
+        }
+    })
 })
 });
 </script>

@@ -11,7 +11,7 @@
 
     <title>ToDo List</title>
 
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vndr/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -108,13 +108,15 @@
     <script>
       $(document).ready(function () {
         var ulEle;
+        const token = localStorage.getItem('token');
           function fetchTasks() {
             $.ajax({
-              url: 'api/upcoming',
+              url: 'rest/routes/upcoming',
               dataType: 'json',
               type:'GET',
+              headers: {'Token' : token},
               success: function (data) {
-                  var tasks = data.tasks; 
+                  var tasks = data.upcoming; 
 
                   tasks.forEach(function(task) {
                       var ulElement = $('<ul>').addClass('list-group list-group-horizontal rounded-0 bg-transparent');
@@ -164,11 +166,12 @@
 
       console.log(requestData);
       $.ajax({
-        url: 'api/add_task',
+        url: 'rest/routes/add_task',
         dataType: 'json',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(requestData),
+        headers: {'Token' : token},
         success: function(response) {
             console.log('Added task successfully');
             // var upcomingTasks = document.getElementById('upcomingTasks');
@@ -184,16 +187,18 @@
 
 $(document).on('click', '.mark-done', function(e){
   e.preventDefault();
+  const token = localStorage.getItem('token');
   var taskID = $(this).data('task-id');
   const dataSend = {
     "task_id": taskID
   }
   console.log(taskID);
   $.ajax({
-    url:'api/mark-done',
+    url:'rest/routes/mark-done',
     type:'POST',
     dataType: 'json',
     data: JSON.stringify(dataSend),
+    headers: {'Token' : token},
     success: function(response){
       alert('Successfully marked task done');
       location.reload();

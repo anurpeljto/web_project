@@ -11,7 +11,7 @@
 
     <title>ToDo List</title>
 
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vndr/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
@@ -83,10 +83,8 @@
             
 
 
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>ToDo List</strong> is packed with premium features, components,
@@ -111,7 +109,6 @@
             </section>
 
         </div>
-        <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -149,9 +146,17 @@
     <script src="js/script.js"></script>
     <script>
         $(document).ready(function() {
+            const token = localStorage.getItem("token");
+            if (token == null){
+                window.location.href='login.html';
+            }
             $.ajax({
-                url: 'api/userDetails',
-                type: 'GET',
+                url: 'rest/routes/userDetails',
+                type: 'POST',
+                data: JSON.stringify({"token":token}),
+                headers: {
+                    'Token':token
+                },
                 success: function(data){
                     if (data === null) {
                         window.location.href="register.html";
@@ -173,9 +178,13 @@
 
             $('#logoutBtn').click(function() {
                 $.ajax({
-                    url: 'api/logout',
+                    url: 'rest/routes/logout',
                     type: 'GET',
+                    headers:{
+                        'Token': token
+                    },
                     success: function(response){
+                        localStorage.removeItem("token");
                         window.location.href="login.html";
                     }
                 })
